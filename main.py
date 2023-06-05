@@ -16,6 +16,6 @@ def main(inparam):
         create_load_tabs(qname, rpath)
         run_query(qname, rpath)
     except: 
-        raise KeyError()
+        raise KeyError(f'Wrong input parameter entered: {inparam}')
 if __name__ == "__main__":
      main(sys.argv[1])
