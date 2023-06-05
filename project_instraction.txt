@@ -53,11 +53,6 @@ A. Launch command
 		with releveant <launch parameter> corresponding customization done (see instruction 3.(A..C) point) 
 B. Check output result in sources\work\<name of query>_result.txt file. 
    Note: In case of needs the created database \dbs\<query name>.dbs can be used for tests from other DB IDE (for instance, DB Browser for SQLite)  
-
-
-
-
-		
 		
 		
 		
