@@ -1,18 +1,17 @@
 
 A tool on sql scripts check.
+A project allowing :
+ - to create test SQite databases & tables and load its with test data
+ - to run test queries and save query test results in .txt file
 ===============================================================
-
 1. Installation pre-requisites: 
-
 	1. Python Release for Windows
 	https://www.python.org/downloads/windows/
 	2. Sqlite
 	3. Downloaded current project	
 	4. (Optional)DB Browser for SQLite
 ===============================================================
-
-Introduction:
-2. Check existing main inputs of this project:
+2. Introduction by check existing main inputs of this project:
 
 A. Open \sources\control\Qsettings.py to check Enum classes with settings:
 		class Qsysargv_list(Enum):
@@ -35,7 +34,6 @@ C. Open sources\work to check query content available for test and relevant gene
 		<name of query>_query.sql 
 		<name of query>_result.txt
 ==================================================================
-
 3. Customization.
 
 In case of new test query adding: 
@@ -54,7 +52,7 @@ A. Launch command
 							 py main.py <launch parameter>
 		with releveant <launch parameter> corresponding customization done (see instruction 3.(A..C) point) 
 B. Check output result in sources\work\<name of query>_result.txt file. 
-	Note: In case of needs the created database \dbs\<query name>.dbs can be used for tests from other DB IDE (for instance, DB Browser for SQLite)  
+   Note: In case of needs the created database \dbs\<query name>.dbs can be used for tests from other DB IDE (for instance, DB Browser for SQLite)  
 
 
 
