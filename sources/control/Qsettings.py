@@ -1,13 +1,19 @@
 from enum import Enum
 
 class Qsysargv_list(Enum):
+# parameter | name of query
+# under customization
   one  = "gengrants"
   two  = "overgroup"
 
 class Qtabs_list(Enum):
+# name of query | list of tables accessing in query
+# under customization
   gengrants  = ["SYSDUMMY1","SYSTABLES","SYSTABAUTH"]
   overgroup  = ["CUSTGOODS"]
-    
+
+# list of project's folders 
+# NOT!!! under customization   
 def apath(root_path,active_suffix):  
   class Suffixs(Enum):
     dbs     = 'dbs\\'

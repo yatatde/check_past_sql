@@ -14,7 +14,7 @@ def main(inparam):
         print("\nSTARTED at " + datetime.today().strftime("%D  %H:%M"))
         qname = Qsysargv_list[inparam].value
         create_load_tabs(qname, rpath)
-        # run_query(qname, rpath)
+        run_query(qname, rpath)
     except: 
         raise KeyError()
 if __name__ == "__main__":
