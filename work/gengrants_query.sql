@@ -4,7 +4,7 @@
 -- GRANTEES - group to be granted
 -- SELECTAUTH, UPDATEAUTH, DELETEAUTH, INSERTAUTH - what should be granted
 -- TABLEPREFIX - prefix of table's name or whole table's name for which granted
-with TABLES_GRANTS_REQUIRED 
+with TABLES_GRANTS_MUST_HAVE 
   (GRANTEES, TABLEPREFIX, SELECTAUTH, UPDATEAUTH, DELETEAUTH, INSERTAUTH) 
 as
  (select 'CRANTEE_MUST_A', 'TABPR',    'SELECT',         '',       '',       '' from SYSDUMMY1 union
@@ -18,13 +18,13 @@ as
 --union 
 -- select 'CRANTEE_MUST_E', 'TABPR',          '',        '',       '',       '' from SYSDUMMY1 
   ),
-  TABLES_GRANTS_MUST_HAVE 
-  (GRANTEES, TABLEPREFIX, SELECTAUTH, UPDATEAUTH, DELETEAUTH, INSERTAUTH) 
-as
-  (select GRANTEES, TABLEPREFIX, MAX(SELECTAUTH), MAX(UPDATEAUTH), MAX(DELETEAUTH), MAX(INSERTAUTH)
-   from TABLES_GRANTS_REQUIRED
-   group by GRANTEES, TABLEPREFIX
-  ),
+--  TABLES_GRANTS_MUST_HAVE 
+--  (GRANTEES, TABLEPREFIX, SELECTAUTH, UPDATEAUTH, DELETEAUTH, INSERTAUTH) 
+--as
+--  (select GRANTEES, TABLEPREFIX, MAX(SELECTAUTH), MAX(UPDATEAUTH), MAX(DELETEAUTH), MAX(INSERTAUTH)
+--   from TABLES_GRANTS_REQUIRED
+--   group by GRANTEES, TABLEPREFIX
+--  ),
   TABLES_GRANTS_EXIST
   (TCREATOR, TTNAME, GRANTEES, SELECTAUTH, INSERTAUTH, UPDATEAUTH, DELETEAUTH)
 as 
@@ -81,7 +81,7 @@ from TABLES_GRANTS_MUST_HAVE as TG_MUST_HAVE inner join TABLES_GRANTS_EXIST as T
         or(TG_MUST_HAVE.DELETEAUTH = '' and TG_EXIST.DELETEAUTH <> '') 
         or(TG_MUST_HAVE.INSERTAUTH = '' and TG_EXIST.INSERTAUTH <> '') 
         or(TG_MUST_HAVE.UPDATEAUTH = '' and TG_EXIST.UPDATEAUTH <> ''))
-------- GENERATE GRANT STATEMENTS
+---1---- GENERATE GRANT STATEMENTS
 union 
 select  (' GRANT ' 
   || rtrim
@@ -111,36 +111,37 @@ from  TABLES_GRANTS_EXIST as TG_EXIST inner join TABLES_GRANTS_MUST_HAVE as TG_M
                                         and TG_EXIST.GRANTEES = MH.GRANTEES 
                                     group by MH.GRANTEES)   
 union
-select  (' GRANT ' 
-  || rtrim
-    (case when (TG_EXIST.SELECTAUTH = ''   and TG_MUST_HAVE.SELECTAUTH <> '')
-        then TG_MUST_HAVE.SELECTAUTH || ', ' else '' 
-	end ||
-    case when (TG_EXIST.DELETEAUTH = ''     and TG_MUST_HAVE.DELETEAUTH <> '') 
-        then TG_MUST_HAVE.DELETEAUTH || ', ' else '' 
-	end ||
-    case when (TG_EXIST.INSERTAUTH = ''     and TG_MUST_HAVE.INSERTAUTH <> '') 
-        then TG_MUST_HAVE.INSERTAUTH || ', ' else '' 
-	end ||
-    case when (TG_EXIST.UPDATEAUTH = ''     and TG_MUST_HAVE.UPDATEAUTH <> '') 
-        then TG_MUST_HAVE.UPDATEAUTH         else '' 
-	end,' ,')
+---2---- GENERATE GRANT STATEMENTS
+select  (' GRANT ' ||
+  trim(
+    (case when (TG_MUST_HAVE.SELECTAUTH <> '' )   
+         then TG_MUST_HAVE.SELECTAUTH   else '' 
+	  end ||
+     case when (TG_MUST_HAVE.DELETEAUTH <> '')    
+         then ', '||TG_MUST_HAVE.DELETEAUTH  else '' 
+	  end ||
+    case when (TG_MUST_HAVE.INSERTAUTH <> '')     
+         then ', '||TG_MUST_HAVE.INSERTAUTH  else '' 
+  	end ||
+	  case when   (TG_MUST_HAVE.UPDATEAUTH <> '' )     
+        then ', '||TG_MUST_HAVE.UPDATEAUTH         else '' 
+		end),', ')
   || ' ON TABLE ' || TG_EXIST.TTNAME 
   || ' TO ' || TG_MUST_HAVE.GRANTEES || ';') as command 
 from TABLES_GRANTS_EXIST as TG_EXIST inner join  TABLES_GRANTS_MUST_HAVE as TG_MUST_HAVE 
   on    
-        instr(trim(TG_EXIST.TTNAME),trim(TG_MUST_HAVE.TABLEPREFIX))>0
+    instr(trim(TG_EXIST.TTNAME), trim(TG_MUST_HAVE.TABLEPREFIX))>0
     and TG_MUST_HAVE.TABLEPREFIX = (select max(MH.TABLEPREFIX) 
                                     from TABLES_GRANTS_MUST_HAVE as MH 
                                       where 
                                             instr(trim(TG_EXIST.TTNAME),trim(MH.TABLEPREFIX))>0
                                         and TG_MUST_HAVE.GRANTEES = MH.GRANTEES 
                                     group by MH.GRANTEES)   
-  group by TG_EXIST.TTNAME, TG_MUST_HAVE.GRANTEES, TG_MUST_HAVE.TABLEPREFIX, TG_MUST_HAVE.SELECTAUTH, 
-           TG_MUST_HAVE.DELETEAUTH, TG_MUST_HAVE.INSERTAUTH ,TG_MUST_HAVE.UPDATEAUTH
-	  having not 
-		        sum(instr(trim(TG_EXIST.TTNAME),trim(TG_MUST_HAVE.TABLEPREFIX)))=0
-	    and not (  TG_MUST_HAVE.SELECTAUTH = '' 	
+  group by TG_EXIST.TTNAME, 
+      TG_MUST_HAVE.GRANTEES, TG_MUST_HAVE.TABLEPREFIX, 
+      TG_MUST_HAVE.SELECTAUTH, TG_MUST_HAVE.DELETEAUTH, TG_MUST_HAVE.INSERTAUTH ,TG_MUST_HAVE.UPDATEAUTH
+	  having  sum(instr(trim(TG_EXIST.GRANTEES),trim(TG_MUST_HAVE.GRANTEES))) = 0
+	    and NOT (  TG_MUST_HAVE.SELECTAUTH = '' 	
 			         and TG_MUST_HAVE.DELETEAUTH = '' 	
 			         and TG_MUST_HAVE.INSERTAUTH = '' 
 			         and TG_MUST_HAVE.UPDATEAUTH = '')
