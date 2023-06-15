@@ -36,12 +36,15 @@ class Qproc:
   # 4 run sql script from text file
   def run_script(qp, sql_script, fetch_flag):
       cur = qp.dbconn.cursor()
-      cur.execute(sql_script)
-      qp.dbconn.commit()
-      if fetch_flag == "one":
-        return cur.fetchone()
-      else: return cur.fetchall()
-      cur.close()
+      try:
+        cur.execute(sql_script)
+        qp.dbconn.commit()
+        if fetch_flag == "one":
+          return cur.fetchone()
+        else: return cur.fetchall()
+        cur.close()
+      except Error as e:
+        print(e)
       
   # 5 check connection status for test purpose
   def check_dbconn_status(qp):
