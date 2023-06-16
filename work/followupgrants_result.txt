@@ -1,0 +1,18 @@
+DBADM_OF_TESTDB', 'CHECK_GROUP_1', 'TABLE1', 'G', 'G', 'G', 'G', 'G', 'G', 'OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_2', 'TABLE1', ' ', ' ', ' ', ' ', 'Y', ' ', 'OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_2', 'TABLE2', ' ', ' ', ' ', ' ', 'Y', ' ', 'OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_4', 'TABLE1', 'G', 'G', 'G', 'G', 'G', 'G', 'OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_5', 'TABLE1', ' ', ' ', ' ', ' ', 'Y', ' ', 'OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_5', 'TABLE2', ' ', ' ', ' ', ' ', 'Y', ' ', 'OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_7', 'TABLE1', 'G', 'G', 'G', 'G', 'G', 'G', 'OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_9', 'TABLE1', ' ', ' ', ' ', ' ', 'Y', ' ', 'OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_1', 'TABLE2', 'G', ' ', 'G', ' ', 'G', 'G', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_3', 'TABLE1', ' ', 'Y', ' ', 'Y', 'Y', 'Y', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_3', 'TABLE2', ' ', 'Y', ' ', ' ', 'Y', 'Y', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_4', 'TABLE2', 'G', ' ', 'G', ' ', 'G', 'G', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_6', 'TABLE1', ' ', 'Y', ' ', 'Y', 'Y', 'Y', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_6', 'TABLE2', ' ', 'Y', ' ', ' ', 'Y', 'Y', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_7', 'TABLE2', 'Y', ' ', ' ', 'Y', ' ', ' ', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_8', 'TABLE1', ' ', 'Y', ' ', 'Y', 'Y', 'Y', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_8', 'TABLE2', 'G', ' ', 'G', ' ', 'G', 'G', 'not_OK', '2023-06-15 19:28:13
+DBADM_OF_TESTDB', 'CHECK_GROUP_9', 'TABLE2', 'Y', ' ', ' ', 'Y', ' ', ' ', 'not_OK', '2023-06-15 19:28:13
