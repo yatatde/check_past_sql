@@ -2,7 +2,6 @@
 -- SYSTABAUTH
 CREATE TABLE IF NOT EXISTS SYSTABAUTH (
    id integer  PRIMARY KEY   
-   ,GRANTOR     text NOT NULL
    ,GRANTEES    text NOT NULL
    ,TCREATOR    text NOT NULL
    ,TTNAME      text NOT NULL
