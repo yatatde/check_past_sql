@@ -1,22 +1,15 @@
-# from generics.createDbConnection import create_connection
-import os
-from sources.Qproc import *
-from sources.control.Qsettings import (Qtabs_list, get_path)
-def create_load_tabs(qid, qname, relative_path):
-  db_file = get_path(relative_path,'dbs') + qid + '_' + qname + '.db'
-  # if db does not exist - the db for processing query is being created
-  if os.path.isfile(db_file) == False:
-    qp = Qproc(qid, qname, get_path(relative_path,'dbs'))
-    # if db connection was not esteblished
-    if qp.dbconn is not None:
-      # create / load tables
-      for tab in Qtabs_list[qname].value:
-        ctab = qp.read_file(get_path(relative_path,'scripts') + qp.qid_qname + "_create_tabs_" + tab + ".sql")
-        ltab = qp.read_file(get_path(relative_path,'scripts') + qp.qid_qname + "_load_tabs_" + tab + ".sql")
-        qp.run_script(ctab,"one") # create source tables for query
-        qp.run_script(ltab,"one") # load source t]ables for query
+from sources.Fileproc import *
+def create_load_tabs(dba):
+  sql_existing_tabs = """select ifnull(GROUP_CONCAT("'"||name||"'"),"ISNULL") from sqlite_master where 
+      type = 'table' and name in (""" + str(dba.tabs).strip("[""]")+""')'""
+  existing_tabs = dba.run_script(sql_existing_tabs,"one")[0]
+  # if tables were not created & loaded before
+  if not all(tab in str(dba.tabs) for tab in existing_tabs):
+    for i in range(len(dba.tabs)):
+      dba.run_script(read_file(dba.ctabfile[i]),"one") # create source tables for query
+      dba.run_script(read_file(dba.ltabfile[i]),"one") # load source tables for query
   else:
-    print(f"\nDb had been created & loaded before :{db_file}")
+    print(f"\n Note: Db had been created & loaded before:\n       {dba.file}")
 # create_load_tabs((sys.argv[1]), (os.getcwd()+"\\"))
 
     
