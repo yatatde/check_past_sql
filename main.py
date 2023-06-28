@@ -12,7 +12,8 @@ relative_path = os.getcwd()+"\\"
 def main(inparam):
   print("\nSTARTED at " + datetime.today().strftime("%D  %H:%M"))
   dba = Dbproc(inparam, relative_path)
-  create_load_tabs(dba)
+  if not dba.name=="None":
+    create_load_tabs(dba)
   run_query(dba)
 if __name__ == "__main__":
 #    app.run(debug = True)

@@ -11,12 +11,13 @@ class Dbproc:
     self.name  = get_dbname(self.qid)
     self.path  = get_path(self.rpath,'dbs')   # path to DB used for query
     self.file  = f"{self.path}{self.name}.db" # DB file used for query
-    self.tabs  = get_tabs(self.name)          # get list of tables of database
     self.conn  = Dbproc.get_conn_db(self)     # dbconnection initialization
     self.qfile = Dbproc.get_qfiles_names(self,'query.sql') 
     self.qrepfile = Dbproc.get_qfiles_names(self,'result.txt') 
-    self.ctabfile = Dbproc.get_tfiles_names(self,'create')
-    self.ltabfile = Dbproc.get_tfiles_names(self,'load')
+    if self.name != "None":
+      self.tabs  = get_tabs(self.name)        # get list of tables of database
+      self.ctabfile = Dbproc.get_tfiles_names(self,'create')#scripts on tables creation
+      self.ltabfile = Dbproc.get_tfiles_names(self,'load')  #scripts on tables loading
   
   # 2 connect to self  
   def get_conn_db(self):

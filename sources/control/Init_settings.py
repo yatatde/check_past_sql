@@ -7,8 +7,9 @@ def get_dbname(qid):
   # under customization on new query adding
     q1  = "gengrants"
     q1e = "gengrants"
-    q2  = "overgroup"
+    q2  = "None"
     q3  = "followupgrants"
+    q4  = "overgroup"
   try: 
     return(Qids_dbs_enum[qid].value)
   except KeyError as e:
@@ -44,5 +45,5 @@ def get_path(relative_path,svalue):
 
 def print_isettings_error(err):
   print(f" Either wrong input parameter provided {err}")
-  print(f" Or check missing settings for {err} in \n    {os.path.dirname(os.path.abspath(__file__))}")
+  print(f" Or check missing settings for {err} in \n    {os.path.abspath(__file__)}")
   exit () 
