@@ -1,4 +1,4 @@
---- AGREAGATION ---  Partitioning with row_number function
+--- AGGREGATION ---  Partitioning with row_number function
 with suppl(preffix, header1, header2, suffix, row_delimeter) as (select 
                                           substr('|       |            |           |             |             ',1,48)
                                           ," goods_id| customer_id| goods_type| goods_weight"
