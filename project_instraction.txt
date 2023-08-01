@@ -17,14 +17,16 @@ A. Open \sources\control\Qsettings.py to check Enum classes with settings:
 		class Qsysargv_list(Enum):
 		# <launch parameter> | <name of query>
 		# under customization
-		one  = "gengrants"
-		two  = "overgroup"
+		q1  = "gengrants"
+		q2  = "overgroup"
+		... etc.
 
 		class Qtabs_list(Enum):
 		# <name of query> | list of <name of table accessing in query>
 		# under customization
 		gengrants  = ["SYSDUMMY1","SYSTABLES","SYSTABAUTH"]
 		overgroup  = ["CUSTGOODS"]
+		... etc.
 		
 B. Open sources\sqlscripts to check queries used for tables creation and data loading   
 		\<name of query>_create_tabs_<name of table accessing in query>
@@ -37,7 +39,7 @@ C. Open sources\work to check query content available for test and relevant gene
 3. Customization.
 
 In case of new test query adding: 
-A. Fullfill \sources\control\Qsettings.py with needed data like "one" parameter and "gengrants" query name as well as tables list - see 2.A. instruction point
+A. Fullfill \sources\control\Qsettings.py with needed data like "q1" parameter and "gengrants" query name as well as tables list - see 2.A. instruction point
 B. Add needed inputs for tables creation \ data loading in sources\sqlscripts.
    Important: the scripts names must be composed with <name of query> , <name of table accessing in query> like it for previous ones - see instruction 2.B point
 C. Add needed input for test query.
@@ -45,14 +47,25 @@ C. Add needed input for test query.
 
 ==================================================================
 4. Running.
-
-A. Launch command 
-		...\check_past_sql> py main.py one 
-		or another command 
-							 py main.py <launch parameter>
-		with releveant <launch parameter> corresponding customization done (see instruction 3.(A..C) point) 
-B. Check output result in sources\work\<name of query>_result.txt file. 
-   Note: In case of needs the created database \dbs\<query name>.dbs can be used for tests from other DB IDE (for instance, DB Browser for SQLite)  
+	QUERY PROCESSING
+	A. Launch command 
+		for query processing (for example q1):
+			...\check_past_sql> py main.py q1 
+			or another command for  
+								 py main.py <launch parameter - query id>
+			with releveant <launch parameter> corresponding customization done (see instruction 3.(A..C) point) 
+	B. Check output result in sources\work\<name of query>_result.txt file. 
+	   Note: In case of needs the created database \dbs\<query name>.dbs can be used for tests from other DB IDE (for instance, DB Browser for SQLite)  
+	
+	EXPLAIN PLAN QUERY reports generation
+	A.Launch command
+		for query processing (for example q1):
+		...\check_past_sql> py main.py explqpq1
+		or another command for  
+								 py main.py explqp+<launch parameter - query id>
+	B. Check sources\work\ folder for output results:
+	   <name of query>_explrep.txt  - for plain explain report 
+	   <name of query>_graphexplrep.txt  - for graph explain report 
 		
 		
 		

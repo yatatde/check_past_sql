@@ -1,0 +1,30 @@
+A graph report for EXPLAIN QUERY PLAN Command
+node 0
+|__node 1 'COMPOUND QUERY <-- step: 1
+   |--node 2 - 'LEFT-MOST SUBQUERY <-- step: 2
+   |  |--node 5 - 'MATERIALIZE suppl <-- step: 3
+   |  |  |__node 7 - 'SCAN CONSTANT ROW <-- step: 4
+   |  |__node 29 - 'SCAN s <-- step: 5
+   |--node 34 - 'UNION ALL <-- step: 6
+   |  |__node 35 - 'SCAN CONSTANT ROW <-- step: 7
+   |--node 38 - 'UNION ALL <-- step: 8
+   |  |__node 41 - 'SCAN s <-- step: 9
+   |--node 46 - 'UNION ALL <-- step: 10
+   |  |--node 50 - 'SCAN s <-- step: 11
+   |  |__node 52 - 'SCAN CUSTGOODS <-- step: 12
+   |--node 91 - 'UNION ALL <-- step: 13
+   |  |__node 94 - 'SCAN s <-- step: 14
+   |--node 99 - 'UNION ALL <-- step: 15
+   |  |__node 100 - 'SCAN CONSTANT ROW <-- step: 16
+   |--node 103 - 'UNION ALL <-- step: 17
+   |  |__node 106 - 'SCAN s <-- step: 18
+   |--node 111 - 'UNION ALL <-- step: 19
+   |  |__node 114 - 'SCAN s <-- step: 20
+   |--node 120 - 'UNION ALL <-- step: 21
+   |  |--node 123 - 'CO-ROUTINE (subquery-12 <-- step: 22
+   |  |  |--node 128 - 'SCAN s <-- step: 23
+   |  |  |--node 130 - 'SCAN CUSTGOODS <-- step: 24
+   |  |  |__node 143 - 'USE TEMP B-TREE FOR ORDER BY <-- step: 25
+   |  |__node 163 - 'SCAN (subquery-12 <-- step: 26
+   |__node 243 - 'UNION ALL <-- step: 27
+      |__node 244 - 'SCAN CONSTANT ROW <-- step: 28

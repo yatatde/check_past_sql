@@ -6,7 +6,6 @@ def get_dbname(qid):
   # query ID | name of database
   # under customization on new query adding
     q1  = "gengrants"
-    q1e = "gengrants"
     q2  = "None"
     q3  = "followupgrants"
     q4  = "overgroup"

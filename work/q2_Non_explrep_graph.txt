@@ -1,0 +1,16 @@
+A graph report for EXPLAIN QUERY PLAN Command
+node 0
+|__node 2 'COMPOUND QUERY <-- step: 1
+   |--node 3 - 'LEFT-MOST SUBQUERY <-- step: 2
+   |  |__node 4 - 'SCAN CONSTANT ROW <-- step: 3
+   |--node 17 - 'UNION USING TEMP B-TREE <-- step: 4
+   |  |--node 20 - 'MATERIALIZE qtrange <-- step: 5
+   |  |  |--node 25 - 'SETUP <-- step: 6
+   |  |  |  |__node 26 - 'SCAN CONSTANT ROW <-- step: 7
+   |  |  |__node 40 - 'RECURSIVE STEP <-- step: 8
+   |  |     |__node 41 - 'SCAN qtrange <-- step: 9
+   |  |__node 51 - 'SCAN qtrange <-- step: 10
+   |--node 119 - 'UNION USING TEMP B-TREE <-- step: 11
+   |  |__node 122 - 'SCAN qtrange <-- step: 12
+   |__node 141 - 'UNION USING TEMP B-TREE <-- step: 13
+      |__node 144 - 'SCAN qtrange <-- step: 14

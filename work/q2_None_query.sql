@@ -20,13 +20,13 @@
       case(qtrange.x/3-6) when(0) then 1 else 0 end qtlist_id_7
     FROM qtrange
     UNION
-    select  
+    select
       '0000-00-00', date('now','start of year',(qtrange.x)||' months','-1 day'),'n/a',
       0,0,0,0,0,0,0
       FROM qtrange
 	    where x=0
     UNION
-    select 
+    select
       date('now','start of year', (qtrange.x+3) ||' months','+1 day'),'9999-12-31','n/a',
       0,0,0,0,0,0,0
       FROM qtrange

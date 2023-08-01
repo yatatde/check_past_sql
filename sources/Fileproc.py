@@ -1,25 +1,27 @@
-# from sources.control.Init_settings im port *
 import os
 from sqlite3 import Error
-def read_file(inpfile):
+def read_file(fname = ''):
   try:
-    fb = open(inpfile, 'r')
-    outdata = fb.read()
+    fb = open(fname, 'r')
+    fdata = fb.read()
     fb.close()
-    return(outdata)
+    return(fdata)
   except Error as e:
     print(e)
     exit()
 
-def write_file(inpdata, outfile):
+def write_file(fdata = '', fname = '', nonstr = ''):
   try:
-    if os.path.exists(outfile):
-      os.remove(outfile)
-    with open(outfile,"w") as fb:
-      for line in inpdata:
+    if os.path.exists(fname):
+      os.remove(fname)
+    with open(fname,"w") as fb:
+      for line in fdata:
         line = str(line)
-        fb.writelines(line.strip(",)" "'" " " "(") +"\n")
-      fb.close()
+        if nonstr == 'yes':
+          fb.writelines(line)
+        else:
+          fb.writelines(line.strip(",)" "'" " " "(") +"\n")
+    fb.close()
   except Error as e:
     print(e)
     exit()
