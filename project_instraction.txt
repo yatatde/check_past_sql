@@ -1,16 +1,24 @@
 
-A tool on sql scripts check.
+A tool on sql statement check.
 A project allowing :
- - to create test SQite databases & tables and load its with test data
- - to run test queries and save query test results in .txt file
-===============================================================
+ - 	to create test SQite databases & tables and load its with test data. The list of scripts on DB loads/creations are kept in \sources\sqlscripts folders.
+ - 	to run SQL statements and saving in reports with suffix _explrep.pdf. The available statements for processing are kept in \work\input folder. 
+ 	As well, the result reports are placed in \work\output folder.
+ - 	to generate EXPLAIN query plan on avaliable statements saving in reports with suffix _suffix.pdf.
+ - 	to format results that generated in table form. The format depends on option (process ID: column number - keyword - color)
+
+
+========================================================================================================================================================================
 1. Installation pre-requisites: 
-	1. Python Release for Windows
+	1. Install Python Release for Windows
 	https://www.python.org/downloads/windows/
-	2. Sqlite
-	3. Downloaded current project	
-	4. (Optional)DB Browser for SQLite
-===============================================================
+	2. Install fpdf2 (https://py-pdf.github.io/fpdf2/DocumentOutlineAndTableOfContents.html)
+	2. Install Sqlite
+	3. Download current project to launch it under MS Visual Studio
+	4. (Optional) Install DB Browser for SQLite for SQlite data browse / manipulation
+
+
+========================================================================================================================================================================
 2. Introduction by check existing main inputs of this project:
 
 A. Open \sources\control\Qsettings.py to check Enum classes with settings:
@@ -20,6 +28,7 @@ A. Open \sources\control\Qsettings.py to check Enum classes with settings:
 		q1  = "gengrants"
 		q2  = "overgroup"
 		... etc.
+	Note: q1,..,q5 ia a id range of avalaible sql statem. This Enum containes correspondance between SQL statement id and DB name.
 
 		class Qtabs_list(Enum):
 		# <name of query> | list of <name of table accessing in query>
@@ -27,25 +36,30 @@ A. Open \sources\control\Qsettings.py to check Enum classes with settings:
 		gengrants  = ["SYSDUMMY1","SYSTABLES","SYSTABAUTH"]
 		overgroup  = ["CUSTGOODS"]
 		... etc.
+	Note: This Enum containes correspondanse between DB name and listed tables names of the DB. 
 		
-B. Open sources\sqlscripts to check queries used for tables creation and data loading   
+B. Open sources\sqlscripts to check scripts used for tables creation and data loading.    
 		\<name of query>_create_tabs_<name of table accessing in query>
 		\<name of query>_load_tabs_<name of table accessing in query>
 
-C. Open sources\work to check query content available for test and relevant generated test result example :
-		<name of query>_query.sql 
-		<name of query>_result.txt
-==================================================================
+C. Open \work\input\ to check sql statements for processing: <name of query>_query.sql 
+
+		\work\\output\<name of query>_rep.pdf or <name of query>_explrep.pdf
+
+D. Check settings on PDF report tables format set in sources\control\PdfSettings.py
+	Detailed description will be provided later
+
+========================================================================================================================================================================
 3. Customization.
 
-In case of new test query adding: 
+In case of new test SQL statement adding: 
 A. Fullfill \sources\control\Qsettings.py with needed data like "q1" parameter and "gengrants" query name as well as tables list - see 2.A. instruction point
 B. Add needed inputs for tables creation \ data loading in sources\sqlscripts.
    Important: the scripts names must be composed with <name of query> , <name of table accessing in query> like it for previous ones - see instruction 2.B point
 C. Add needed input for test query.
    Important: the script name must be composed with <name of query> like it for previous ones - see instruction 2.C. point
 
-==================================================================
+========================================================================================================================================================================
 4. Running.
 	QUERY PROCESSING
 	A. Launch command 
@@ -61,11 +75,9 @@ C. Add needed input for test query.
 	A.Launch command
 		for query processing (for example q1):
 		...\check_past_sql> py main.py explqpq1
-		or another command for  
-								 py main.py explqp+<launch parameter - query id>
-	B. Check sources\work\ folder for output results:
-	   <name of query>_explrep.txt  - for plain explain report 
-	   <name of query>_graphexplrep.txt  - for graph explain report 
-		
+		or for another SQL statement with <query id>
+							py main.py explqp<query id>
+	B. Check sources\work\output folder for output results:
+	   <name of query>_explrep.pdf  - for plain explain report 		
 		
 		
